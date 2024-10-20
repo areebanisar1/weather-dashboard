@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="content-wrapper">
+        <div class="side-menu">
+          <div class="logo">
+            <img src="logo.png" alt="Weather App Logo" />
+          </div>
+          <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="tables.html">Tables</a></li>
+          </ul>
+        </div>
+
+        <div class="main-content">
+          <h1>Weather App</h1>
+
+          <div class="search-bar">
+            <div class="search-bar-left">
+              <input
+                type="text"
+                id="city-input"
+                placeholder="Enter city name"
+              />
+              <button id="get-weather">Get Weather</button>
+              <button id="use-location">Use My Location</button>
+            </div>
+
+            <div class="unit-toggle">
+              <label class="switch">
+                <input type="checkbox" id="unit-toggle" />
+                <span class="slider"></span>
+              </label>
+              <span>°F</span>
+            </div>
+          </div>
+
+          <div class="user-profile">
+            <img
+              src="https://wallpapers.com/images/hd/profile-picture-f67r1m9y562wdtin.jpg"
+              alt="User Profile Picture"
+            />
+          </div>
+
+          <div class="weather-widget hidden" id="weather-widget">
+            <h3>Weather Data Based on City</h3>
+            <div id="weather-container">
+              <div id="weather-details"></div>
+            </div>
+          </div>
+
+          <div class="charts hidden">
+            <div class="chart">
+              <h4>Vertical Bar Chart</h4>
+              <canvas id="vertical-bar"></canvas>
+            </div>
+            <div class="chart">
+              <h4>Doughnut Chart</h4>
+              <canvas id="doughnut"></canvas>
+            </div>
+            <div class="chart">
+              <h4>Line Chart</h4>
+              <canvas id="line"></canvas>
+            </div>
+          </div>
+          <br />
+
+          <div class="forecast-section hidden">
+            <div class="forecast-card" id="day1"></div>
+            <div class="forecast-card" id="day2"></div>
+            <div class="forecast-card" id="day3"></div>
+            <div class="forecast-card" id="day4"></div>
+            <div class="forecast-card" id="day5"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="App.js"></script>
+  </body>
+</html>

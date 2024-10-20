@@ -1,0 +1,246 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f0f8ff;
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px;
+  margin: 40px auto;
+  max-width: 1200px;
+}
+
+.side-menu {
+  padding: 20px;
+  background: linear-gradient(to right, #00c6ff, #0072ff);
+  width: 180px;
+  height: 100vh;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  position: fixed;
+  top: 40px;
+  left: 40px;
+  z-index: 999;
+}
+
+.side-menu .logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.side-menu .logo img {
+  width: 100px;
+}
+
+.side-menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.side-menu ul li {
+  margin: 20px 0;
+}
+
+.side-menu ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px;
+  display: block;
+}
+
+.side-menu ul li a.active {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
+.main-content {
+  flex-grow: 1;
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px;
+  margin-left: 220px;
+  margin-right: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.toggle-container label {
+  font-size: 1em;
+  color: #333;
+}
+
+.toggle-container input[type="checkbox"] {
+  margin: 0 10px;
+  cursor: pointer;
+  width: 40px;
+  height: 20px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #ccc;
+  border-radius: 20px;
+  position: relative;
+  outline: none;
+  transition: background 0.3s ease;
+}
+
+.toggle-container input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.toggle-container input[type="checkbox"]:checked {
+  background: #0072ff;
+}
+
+.toggle-container input[type="checkbox"]:checked::before {
+  transform: translateX(20px);
+}
+
+.filter-buttons {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.filter-buttons button {
+  padding: 10px 15px;
+  margin: 5px;
+  background-color: #0072ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.filter-buttons button:hover {
+  background-color: #005bb5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-size: 1em;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #f9fafc;
+}
+
+table thead {
+  background-color: #0066cc;
+  color: white;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+table th,
+table td {
+  padding: 10px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+table tbody tr:nth-of-type(even) {
+  background-color: #f1f3f5;
+}
+
+table tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+table tbody tr td {
+  font-size: 0.95em;
+  color: #333;
+}
+
+#pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+#pagination button {
+  background-color: #0072ff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin: 0 5px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 0.9em;
+}
+
+#pagination button:hover {
+  background-color: #005bb5;
+}
+
+#pagination button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Chat Container */
+.chat-container {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f0f8ff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chat-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+#chat-input {
+  padding: 10px;
+  flex: 1;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+#send-chat {
+  padding: 10px 15px;
+  background-color: #0072ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#send-chat:hover {
+  background-color: #005bb5;
+}
+
+#chat-response {
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 5px;
+  min-height: 50px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  color: #333;
+}

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Table</title>
+    <link rel="stylesheet" href="table.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="table.js" defer></script>
+  </head>
+  <body>
+    <div class="content-wrapper">
+      <div class="side-menu">
+        <div class="logo">
+          <img src="logo.png" alt="Logo" />
+        </div>
+        <ul>
+          <li><a href="dashboard.html" class="active">Dashboard</a></li>
+          <li><a href="tables.html">Tables</a></li>
+        </ul>
+      </div>
+
+      <div class="main-content">
+        <div class="container">
+          <div class="toggle-container">
+            <label for="unit-toggle">°C</label>
+            <input type="checkbox" id="unit-toggle" />
+            <label for="unit-toggle">°F</label>
+          </div>
+
+          <div class="filter-buttons">
+            <button onclick="sortTemperaturesAscending()">
+              Sort Temperatures Ascending
+            </button>
+            <button onclick="sortTemperaturesDescending()">
+              Sort Temperatures Descending
+            </button>
+            <button onclick="filterRainyDays()">Show Rainy Days</button>
+            <button onclick="findHighestTemperature()">
+              Show Highest Temperature
+            </button>
+          </div>
+
+          <table id="forecast-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Temperature</th>
+                <th>Weather Description</th>
+                <th>Humidity</th>
+                <th>Wind Speed</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+
+          <div id="pagination">
+            <button id="prev-page">Previous</button>
+            <button id="next-page">Next</button>
+          </div>
+        </div>
+
+        <div class="chat-container">
+          <div class="chat-bar">
+            <input
+              type="text"
+              id="chat-input"
+              placeholder="Ask me anything..."
+            />
+            <button id="send-chat">Send</button>
+          </div>
+          <div id="chat-response"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function formatDate(date) {
+        const formattedDate = new Date(date).toLocaleDateString("en-US");
+        console.log("Formatted Date:", formattedDate); // Debugging
+        return formattedDate;
+      }
+
+      function isWeatherQuery(query) {
+        const weatherKeywords = [
+          "weather",
+          "forecast",
+          "temperature",
+          "rain",
+          "wind",
+          "humidity",
+          "today",
+          "tomorrow",
+          "day after tomorrow",
+          "monday",
+          "tuesday",
+          "wednesday",
+          "thursday",
+          "friday",
+          "saturday",
+          "sunday",
+        ];
+        return weatherKeywords.some((keyword) =>
+          query.toLowerCase().includes(keyword)
+        );
+      }
+
+      function getRequestedDay(query) {
+        query = query.toLowerCase();
+        const now = new Date();
+
+        if (query.includes("tomorrow")) {
+          return new Date(now.setDate(now.getDate() + 1));
+        }
+        if (query.includes("day after tomorrow")) {
+          return new Date(now.setDate(now.getDate() + 2));
+        }
+
+        const daysOfWeek = [
+          "sunday",
+          "monday",
+          "tuesday",
+          "wednesday",
+          "thursday",
+          "friday",
+          "saturday",
+        ];
+        for (let i = 0; i < daysOfWeek.length; i++) {
+          if (query.includes(daysOfWeek[i])) {
+            const currentDay = now.getDay();
+            let diff = (i + 7 - currentDay) % 7;
+            return new Date(now.setDate(now.getDate() + diff));
+          }
+        }
+
+        return now;
+      }
+
+      function getForecastForDay(requestedDay) {
+        const formattedRequestedDay = formatDate(requestedDay);
+        console.log("Requested Day:", formattedRequestedDay);
+
+        return forecastData.find((entry) => {
+          const forecastDate = formatDate(entry.date);
+          console.log("Forecast Date:", forecastDate);
+          return forecastDate === formattedRequestedDay;
+        });
+      }
+
+      // Function to create a weather response based on the forecast entry
+      function createWeatherResponse(city, forecast, requestedDay) {
+        if (!forecast) {
+          return `Sorry, no forecast data is available for ${requestedDay.toDateString()}.`;
+        }
+
+        const temperature = forecast.temperature.toFixed(1);
+        const condition = forecast.condition;
+        const windSpeed = forecast.windSpeed.toFixed(1);
+        const humidity = forecast.humidity;
+        const tempUnit = isCelsius ? "°C" : "°F";
+        const windSpeedUnit = isCelsius ? "m/s" : "mph";
+
+        return `The weather in ${city} on ${requestedDay.toDateString()} will be ${temperature}${tempUnit} with ${condition}. The wind speed will be ${windSpeed} ${windSpeedUnit}, and the humidity will be ${humidity}%.`;
+      }
+
+      $("#send-chat").on("click", function () {
+        const query = $("#chat-input").val();
+        if (!query) {
+          return;
+        }
+
+        $("#chat-response").text("Thinking...");
+
+        if (isWeatherQuery(query)) {
+          const city = localStorage.getItem("selectedCity");
+          if (city && forecastData.length > 0) {
+            const requestedDay = getRequestedDay(query);
+            const forecast = getForecastForDay(requestedDay);
+            const response = createWeatherResponse(
+              city,
+              forecast,
+              requestedDay
+            );
+            console.log("Response:", response); // Debugging response
+            $("#chat-response").html(response);
+          } else {
+            $("#chat-response").html(
+              "Please enter a city name or select a location from the dashboard."
+            );
+          }
+        } else {
+          $("#chat-response").html(
+            "I can handle only weather-related queries."
+          );
+        }
+
+        $("#chat-input").val("");
+      });
+    </script>
+  </body>
+</html>
